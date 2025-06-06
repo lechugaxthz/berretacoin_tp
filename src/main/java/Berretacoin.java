@@ -6,7 +6,7 @@ public class Berretacoin implements IBerretacoin {
     private int cantTransaccionesEnBloque;
 
 
-    public Berretacoin nuevoBerretacoin(int cantUsuarios, int cantTransaccionesEnBloque) {
+    public Berretacoin Berretacoin(int cantUsuarios, int cantTransaccionesEnBloque) {
         /*
             temporal, actualizar a su respectivo !
          */
@@ -17,7 +17,7 @@ public class Berretacoin implements IBerretacoin {
 
 
     @Override
-    public void agregarBloque(ArrayList<ITransaccion> transaccions) {
+    public void agregarBloque(ArrayList<ITransaccion> transacciones) {
         return;
     }
 
