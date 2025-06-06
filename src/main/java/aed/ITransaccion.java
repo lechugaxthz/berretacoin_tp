@@ -1,6 +1,6 @@
-public interface ITransaccion {
-    public int compareTo(ITransaccion otraTransaccion);
+package aed;
 
+public interface ITransaccion {
     public boolean equals(Object otraTransaccion);
 
     public int monto();

@@ -1,3 +1,5 @@
+package aed;
+
 import java.util.ArrayList;
 
 /**
@@ -13,25 +15,25 @@ public interface IBerretacoin {
      *  Debe agregar un bloque a la secuencia de transacciones
      * @return
      */
-    void agregarBloque( ArrayList<ITransaccion> transaccions);
+    void agregarBloque( ArrayList<Transaccion> transaccions);
 
     /**
      * Complejidad O(1)
      * Devuelve la transacción mas grande del ultimo Bloque
      * @return
      */
-    ITransaccion txMayorValorUltimoBloque();
+    Transaccion txMayorValorUltimoBloque();
 
     /**
      * Complejidad O(n_b)
      * Devuelve una copia de la secuencia de transacciones del últmo bloque ordenadas por su ID
      * @return
      */
-    ArrayList<ITransaccion> txUltimoBloque();
+    ArrayList<Transaccion> txUltimoBloque();
 
     /**
      * Complejidad O(1)
-     * Devuelve al usuario qeu posee la mayor cantidad de $Berretacoin. en caso de empate, el de menor ID
+     * Devuelve al usuario qeu posee la mayor cantidad de $aed.Berretacoin. en caso de empate, el de menor ID
      * @return
      */
     int maximoTenedor();

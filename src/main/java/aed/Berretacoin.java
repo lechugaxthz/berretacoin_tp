@@ -1,3 +1,5 @@
+package aed;
+
 import java.util.*;
 
 public class Berretacoin implements IBerretacoin {
@@ -17,17 +19,17 @@ public class Berretacoin implements IBerretacoin {
 
 
     @Override
-    public void agregarBloque(ArrayList<ITransaccion> transacciones) {
+    public void agregarBloque(ArrayList<Transaccion> transacciones) {
         return;
     }
 
     @Override
-    public ITransaccion txMayorValorUltimoBloque() {
+    public Transaccion txMayorValorUltimoBloque() {
         return null;
     }
 
     @Override
-    public ArrayList<ITransaccion> txUltimoBloque() {
+    public ArrayList<Transaccion> txUltimoBloque() {
         return null;
     }
 
