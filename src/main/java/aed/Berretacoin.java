@@ -8,11 +8,10 @@ public class Berretacoin implements IBerretacoin {
     private HeapUsuarios heapUsuarios;
     private Bloque bloque;
 
-    public Berretacoin Berretacoin(int cantUsuarios) {
+    public Berretacoin(int cantUsuarios) {
         Berretacoin berretacoin = this;
         berretacoin.cantUsuarios = cantUsuarios;
-        berretacoin.heapUsuarios = new HeapUsuarios();
-        return berretacoin;
+        berretacoin.heapUsuarios = new HeapUsuarios(cantUsuarios);
     };
 
 
