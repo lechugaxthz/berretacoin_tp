@@ -5,16 +5,14 @@ import java.util.*;
 public class Berretacoin implements IBerretacoin {
 
     private int cantUsuarios;
-    private int cantTransaccionesEnBloque;
+    private HeapUsuarios heapUsuarios;
+    private Bloque bloque;
 
-
-    public Berretacoin Berretacoin(int cantUsuarios, int cantTransaccionesEnBloque) {
-        /*
-            temporal, actualizar a su respectivo !
-         */
-        this.cantUsuarios = cantUsuarios;
-        this.cantTransaccionesEnBloque = cantTransaccionesEnBloque;
-        return this;
+    public Berretacoin Berretacoin(int cantUsuarios) {
+        Berretacoin berretacoin = this;
+        berretacoin.cantUsuarios = cantUsuarios;
+        berretacoin.heapUsuarios = new HeapUsuarios();
+        return berretacoin;
     };
 
 
