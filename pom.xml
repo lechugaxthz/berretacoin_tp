@@ -5,10 +5,10 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>aed</groupId>
-  <artifactId>tp2</artifactId>
+  <artifactId>berretacoin_tp</artifactId>
   <version>1.0-SNAPSHOT</version>
 
-  <name>tp2</name>
+  <name>berretacoin_tp</name>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
