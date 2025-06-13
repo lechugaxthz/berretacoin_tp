@@ -16,18 +16,30 @@ public class Berretacoin implements IBerretacoin {
 
 
     @Override
-    public void agregarBloque(ArrayList<Transaccion> transacciones) {
-        return;
+    public void agregarBloque(Transaccion[] transacciones) {
+        bloque = new Bloque();
+        for (Transaccion transaccion : transacciones) {
+            bloque.agregarTransaccion(transaccion);
+            int id_comprador = transaccion.id_comprador();
+            int id_vendedor = transaccion.id_vendedor();
+            int monto =  transaccion.monto();
+            if (id_comprador != 0){
+                heapUsuarios.actualizarMontoUsuario(id_comprador, -monto);
+            }
+            heapUsuarios.actualizarMontoUsuario(id_vendedor, monto);
+        }
+        bloque.sortHeapTransacciones();
+        heapUsuarios.sortHeap();
     }
 
     @Override
     public Transaccion txMayorValorUltimoBloque() {
-        return null;
+        return bloque.maximaTransaccion();
     }
 
     @Override
-    public ArrayList<Transaccion> txUltimoBloque() {
-        return null;
+    public Transaccion[] txUltimoBloque() {
+        return bloque.obtenerCopiaTransacciones();
     }
 
     @Override

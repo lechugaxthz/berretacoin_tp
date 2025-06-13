@@ -38,7 +38,7 @@ public class HeapUsuarios implements IHeapUsuarios {
 
     @Override
     public void sortHeap() {
-        for (int i = (this.size / 2) - 1; i >= 0; i++) {
+        for (int i = (this.size / 2) - 1; i >= 0; i--) {
             shiftUpAndDown(i);
         }
     };
