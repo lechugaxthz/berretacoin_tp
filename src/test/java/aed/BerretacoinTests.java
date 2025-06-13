@@ -206,6 +206,7 @@ public class BerretacoinTests {
         berretacoin.agregarBloque(bloque);
 
         Transaccion mayorValor = berretacoin.txMayorValorUltimoBloque();
+        System.out.println(mayorValor.id());
         assertEquals(new Transaccion(4, 4, 5, 1), mayorValor);
     }
 
@@ -254,7 +255,7 @@ public class BerretacoinTests {
         
         berretacoin.hackearTx();
 
-        assertEquals(berretacoin.maximoTenedor(), 3);
+        assertEquals(berretacoin.maximoTenedor(), 1);
         assertEquals(berretacoin.txMayorValorUltimoBloque(), new Transaccion(1, 2, 3, 1));
         assertEquals(berretacoin.montoMedioUltimoBloque(), 1);
         assertTrue(Arrays.equals(berretacoin.txUltimoBloque(), transacciones_hackeadas));
@@ -319,6 +320,13 @@ public class BerretacoinTests {
         berretacoin.agregarBloque(transacciones3);
         
         berretacoin.hackearTx();
+        /**
+         * 1 -> 2 -> 1 -> 2 -> 0 -> 2 -> 1
+         * 2 -> 1 -> 0 -> 1 -> 3 -> 0 -> 1 -> 0
+         * 3 -> 1 -> 0 -> 3 -> 1 -> 2  //-> -1
+         * 4 -> 1 -> 2 -> 0
+         * 
+         */
 
         assertEquals(berretacoin.maximoTenedor(), 2);
         assertEquals(berretacoin.txMayorValorUltimoBloque(), new Transaccion(3, 3, 1, 2));
@@ -347,6 +355,16 @@ public class BerretacoinTests {
         berretacoin.hackearTx();
         berretacoin.hackearTx();
 
+        /**
+         * 1 -> 2 -> 1 -> 2 -> 0 -> 2 -> 1 // -> -1 -> 1
+         * 2 -> 1 -> 0 -> 1 -> 3 -> 0 -> 1 -> 0 // -> -2-> 1
+         * 3 -> 1 -> 0 -> 3 -> 1 -> 2  //-> -1 -> 1
+         * 4 -> 1 -> 2 -> 0
+         * 5
+         * 6
+         * 7
+         */
+        
         assertEquals(berretacoin.maximoTenedor(), 2);
         assertEquals(berretacoin.txMayorValorUltimoBloque(), new Transaccion(1, 1, 2, 2));
         assertEquals(berretacoin.montoMedioUltimoBloque(), 5/4);

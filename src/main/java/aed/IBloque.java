@@ -1,7 +1,5 @@
 package aed;
 
-import java.util.ArrayList;
-
 public interface IBloque {
     /**
      * Se agrega la transaccion en sus 2 ArrayList.
@@ -48,5 +46,5 @@ public interface IBloque {
      * 
      * @return devuelve el monto medio del bloque
      */
-    float montoMedioBloque();
+    int montoMedioBloque();
 }

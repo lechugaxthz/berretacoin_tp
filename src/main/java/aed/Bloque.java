@@ -5,8 +5,8 @@ import java.util.ArrayList;
 public class Bloque implements IBloque {
     private ArrayList<Transaccion> transacciones;
     private ArrayList<Transaccion> heapTransacciones;
-    private float montoTotal;
-    private float cant_transacciones_no_creacion;
+    private int montoTotal;
+    private int cant_transacciones_no_creacion;
 
     public Bloque() {
         Bloque bloque = this;
@@ -29,7 +29,9 @@ public class Bloque implements IBloque {
 
     @Override
     public void sortHeapTransacciones() {
-        for (int i = (transacciones.size() / 2) - 1; i >= 0; i--) {}
+        for (int i = (transacciones.size() / 2) - 1; i >= 0; i--) {
+            shiftUpAndDown(i);
+        }
     }
 
     private void shiftUpAndDown(int i) {
@@ -37,10 +39,22 @@ public class Bloque implements IBloque {
             int izq = (2 * i) + 1;
             int der = (2 * i) + 2;
             int mayor = i;
-
-            
+            if (izq < transacciones.size()  && heapTransacciones.get(mayor).compareTo(heapTransacciones.get(izq)) > 0) {
+                mayor = izq;
+            }
+            if (der < transacciones.size() && heapTransacciones.get(mayor).compareTo(heapTransacciones.get(der)) > 0) {
+                mayor = der;
+            }
             if (mayor == i) break;
+            changeSites(i, mayor);
+            i = mayor;
         }
+    }
+
+    private void changeSites(int i, int j){
+        Transaccion aux = heapTransacciones.get(i);
+        this.heapTransacciones.set(i, heapTransacciones.get(j));
+        this.heapTransacciones.set(j, aux);
     }
 
     @Override
@@ -65,9 +79,9 @@ public class Bloque implements IBloque {
     }
 
     @Override
-    public float montoMedioBloque() {
-        float montoMedio = 0f;
-        if (cant_transacciones_no_creacion != 0){
+    public int montoMedioBloque() {
+        int montoMedio = 0;
+        if (cant_transacciones_no_creacion > 0){
             montoMedio = montoTotal / cant_transacciones_no_creacion;
         }
         return montoMedio;
@@ -75,6 +89,12 @@ public class Bloque implements IBloque {
 
     @Override
     public Transaccion HackTransaccion() {
-        return null;
+        Transaccion maxValor = heapTransacciones.get(0);
+        heapTransacciones.remove(0);
+        transacciones.remove(maxValor);
+        shiftUpAndDown(0);
+        montoTotal += -maxValor.monto();
+        cant_transacciones_no_creacion += -1;
+        return maxValor;
     }
 }

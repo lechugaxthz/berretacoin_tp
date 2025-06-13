@@ -1,7 +1,5 @@
 package aed;
 
-import java.util.ArrayList;
-
 /**
  *   Debe contener:
  *      P cantidad de usuarios

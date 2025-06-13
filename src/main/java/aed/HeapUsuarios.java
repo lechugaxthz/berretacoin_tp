@@ -20,7 +20,7 @@ public class HeapUsuarios implements IHeapUsuarios {
         heapUsuarios.listaUsuarios = new ArrayList<Usuario>();
         heapUsuarios.size = cantUsuarios;
         for (int i = 0; i < cantUsuarios; i++){
-            Usuario nuevoUsuario = new Usuario(i+1, 0);
+            Usuario nuevoUsuario = new Usuario(i+1, 0, i);
             heapUsuarios.heap.add(i, nuevoUsuario);
             heapUsuarios.listaUsuarios.add(i, nuevoUsuario);
         }
@@ -55,15 +55,15 @@ public class HeapUsuarios implements IHeapUsuarios {
      * supuesto "mayor" (i actual)
      * @param i indice por el que se parte con la comparacion entre usuarios.
      */
-    private void shiftUpAndDown(int i){
+    public void shiftUpAndDown(int i){
         while(true) {
             int izq = (2 * i) + 1;
             int der = (2 * i) + 2;
             int mayor = i;
-            if (izq < this.size && this.heap.get(mayor).compareTo(this.heap.get(izq)) < 0) {
+            if (izq < this.size && this.heap.get(mayor).compareTo(this.heap.get(izq)) > 0) {
                 mayor = izq;
             }
-            if (der < this.size && this.heap.get(mayor).compareTo(this.heap.get(der)) < 0) {
+            if (der < this.size && this.heap.get(mayor).compareTo(this.heap.get(der)) > 0) {
                 mayor = der;
             }
             if (mayor == i) break;
@@ -79,8 +79,16 @@ public class HeapUsuarios implements IHeapUsuarios {
      * @param j indice hijo
      */
     private void changeSites(int i, int j){
-        Usuario aux = this.heap.get(i);
-        this.heap.set(i, heap.get(j));
-        this.heap.set(j, aux);
+        Usuario auxI = this.heap.get(i);
+        Usuario auxJ = this.heap.get(j);
+        int auxPosicionHeapI = auxI.getPosicionHeap();
+        auxI.updatePosicionHeap(auxJ.getPosicionHeap());
+        auxJ.updatePosicionHeap(auxPosicionHeapI);
+        this.heap.set(i, auxJ);
+        this.heap.set(j, auxI);
+    }
+
+    public int getPosicionHeapUsuario(int id){
+        return listaUsuarios.get(id - 1).getPosicionHeap();
     }
 }

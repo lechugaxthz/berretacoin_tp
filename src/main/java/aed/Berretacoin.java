@@ -1,16 +1,12 @@
 package aed;
 
-import java.util.*;
-
 public class Berretacoin implements IBerretacoin {
 
-    private int cantUsuarios;
     private HeapUsuarios heapUsuarios;
     private Bloque bloque;
 
     public Berretacoin(int cantUsuarios) {
         Berretacoin berretacoin = this;
-        berretacoin.cantUsuarios = cantUsuarios;
         berretacoin.heapUsuarios = new HeapUsuarios(cantUsuarios);
     };
 
@@ -44,16 +40,25 @@ public class Berretacoin implements IBerretacoin {
 
     @Override
     public int maximoTenedor() {
-        return 0;
+        return heapUsuarios.getMaximoTenedor();
     }
 
     @Override
     public int montoMedioUltimoBloque() {
-        return 0;
+        return bloque.montoMedioBloque();
     }
 
     @Override
     public void hackearTx() {
-        return;
+        Transaccion transaccion = bloque.HackTransaccion();
+        heapUsuarios.actualizarMontoUsuario(transaccion.id_vendedor(), -transaccion.monto());
+        heapUsuarios.actualizarMontoUsuario(transaccion.id_comprador(), transaccion.monto());
+        int posicionUsuarioEnHeapVendedor = heapUsuarios.getPosicionHeapUsuario(transaccion.id_vendedor());
+        /* int posicionUsuarioEnHeapComprador = heapUsuarios.getPosicionHeapUsuario(transaccion.id_comprador());
+        if (posicionUsuarioEnHeapComprador % 2 == 0) {
+            
+        } */
+        heapUsuarios.shiftUpAndDown(posicionUsuarioEnHeapVendedor);
+        
     }
 }
