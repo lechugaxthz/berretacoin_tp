@@ -42,4 +42,11 @@ public interface IBloque {
      * @return la transaccion de mayor monto, estraida del bloque.
      */
     Transaccion HackTransaccion();
+
+    /**
+     * se divide el monto total del bloque por la cantidad de transacciones de NO creacion que hayan.
+     * 
+     * @return devuelve el monto medio del bloque
+     */
+    float montoMedioBloque();
 }

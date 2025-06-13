@@ -5,11 +5,15 @@ import java.util.ArrayList;
 public class Bloque implements IBloque {
     private ArrayList<Transaccion> transacciones;
     private ArrayList<Transaccion> heapTransacciones;
+    private float montoTotal;
+    private float cant_transacciones_no_creacion;
 
     public Bloque() {
         Bloque bloque = this;
         bloque.transacciones = new ArrayList<Transaccion>();
         bloque.heapTransacciones = new ArrayList<Transaccion>();
+        bloque.montoTotal = 0;
+        bloque.cant_transacciones_no_creacion= 0;
     }
 
 
@@ -17,6 +21,10 @@ public class Bloque implements IBloque {
     public void agregarTransaccion(Transaccion nuevasTransaccion) {
         transacciones.add(nuevasTransaccion);
         heapTransacciones.add(nuevasTransaccion);
+        if (nuevasTransaccion.id_comprador() != 0){
+            montoTotal += nuevasTransaccion.monto();
+            cant_transacciones_no_creacion += 1;
+        } 
     }
 
     @Override
@@ -29,19 +37,40 @@ public class Bloque implements IBloque {
             int izq = (2 * i) + 1;
             int der = (2 * i) + 2;
             int mayor = i;
-            if (izq < transacciones.size()) break;
+
+            
+            if (mayor == i) break;
         }
-        System.out.print(i);
     }
 
     @Override
     public Transaccion maximaTransaccion() {
-        return heapTransacciones.get(0);
+        Transaccion mayorValor = heapTransacciones.get(0);
+        Transaccion copiaMayorValor = new Transaccion(mayorValor.id(), mayorValor.id_comprador(), mayorValor.id_vendedor(),mayorValor.monto());
+        return copiaMayorValor;
     }
 
     @Override
     public Transaccion[] obtenerCopiaTransacciones() {
-        return new Transaccion[0];
+        Transaccion[] copiaTransacciones = new Transaccion[transacciones.size()];
+        for (int i = 0; i < transacciones.size(); i++) {
+            Transaccion thisTransaccion = transacciones.get(i);
+            copiaTransacciones[i] = new Transaccion(
+                thisTransaccion.id(), 
+                thisTransaccion.id_comprador(), 
+                thisTransaccion.id_vendedor(), 
+                thisTransaccion.monto());
+        }
+        return copiaTransacciones;
+    }
+
+    @Override
+    public float montoMedioBloque() {
+        float montoMedio = 0f;
+        if (cant_transacciones_no_creacion != 0){
+            montoMedio = montoTotal / cant_transacciones_no_creacion;
+        }
+        return montoMedio;
     }
 
     @Override

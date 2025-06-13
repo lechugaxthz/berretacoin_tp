@@ -23,6 +23,10 @@ public class Transaccion implements ITransaccion, Comparable<Transaccion> {
         throw new UnsupportedOperationException("Implementar!");
     }
 
+    public int id(){
+        return id;
+    }
+
     public int monto() {
         return monto;
     }
