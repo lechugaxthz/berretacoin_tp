@@ -12,21 +12,20 @@ public interface IBloque {
     void agregarTransaccion(Transaccion nuevasTransaccion);
 
     /**
-     * Reordena con un heapSort(); (funcion privada que tendrá el bloque) el heap de transacciones.
+     * Reordena con un shiftUpAndDown(); (funcion privada que tendrá el bloque) el heap de transacciones.
      */
     void sortHeapTransacciones();
-
-    /**
-     * mediante un bucle, agregamos a una lista de longitud finita,
-     * una copia de las transacciones ordenadas por su ID.
-     * @return lista de transacciones ordenadas por ID.
-     */
 
     /**
      * @return devuelve la primera transaccion del heap.
      */
     Transaccion maximaTransaccion();
 
+    /**
+     * mediante un bucle, agregamos a una lista de longitud finita,
+     * una copia de las transacciones ordenadas por su ID.
+     * @return lista de transacciones ordenadas por ID.
+     */
     Transaccion[] obtenerCopiaTransacciones();
 
     /**
@@ -37,13 +36,12 @@ public interface IBloque {
      * </ul>
      * la primera transaccion del heapTransacciones en ambos.
      * posterior a esto, se ven afectados los montos de los usuarios.
-     * @return la transaccion de mayor monto, estraida del bloque.
+     * @return la transaccion de mayor monto, extraida del heap.
      */
     Transaccion HackTransaccion();
 
     /**
      * se divide el monto total del bloque por la cantidad de transacciones de NO creacion que hayan.
-     * 
      * @return devuelve el monto medio del bloque
      */
     int montoMedioBloque();

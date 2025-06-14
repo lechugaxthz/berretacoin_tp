@@ -4,35 +4,33 @@ package aed;
  *   Debe contener:
  *      P cantidad de usuarios
  *      n_b contador de cantidad de transacciones en el bloque
- * @return
  */
 public interface IBerretacoin {
 
     /**
      *  Complejidad O(n_b * log(P))
      *  Debe agregar un bloque a la secuencia de transacciones
-     * @return
      */
     void agregarBloque( Transaccion[] transaccions);
 
     /**
      * Complejidad O(1)
      * Devuelve la transacción mas grande del ultimo Bloque
-     * @return
+     * @return Primera transaccion del Heap.
      */
     Transaccion txMayorValorUltimoBloque();
 
     /**
      * Complejidad O(n_b)
      * Devuelve una copia de la secuencia de transacciones del últmo bloque ordenadas por su ID
-     * @return
+     * @return Copia de todas las transacciones del ultimo bloque.
      */
     Transaccion[] txUltimoBloque();
 
     /**
      * Complejidad O(1)
      * Devuelve al usuario qeu posee la mayor cantidad de $aed.Berretacoin. en caso de empate, el de menor ID
-     * @return
+     * @return ID del maximo tenedor.
      */
     int maximoTenedor();
 
@@ -40,7 +38,7 @@ public interface IBerretacoin {
      * Complejidad O(1)
      * Devuelve el monto promedio de todas las transacciones del ultimo bloque. no se debe considerar las transacciones de creacion.
      * en caso de no haber transacciones $=0
-     * @return
+     * @return Monto medio en el ultimo bloque.
      */
     int montoMedioUltimoBloque();
 
