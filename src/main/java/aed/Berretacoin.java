@@ -8,7 +8,7 @@ public class Berretacoin implements IBerretacoin {
     public Berretacoin(int cantUsuarios) {
         Berretacoin berretacoin = this;
         berretacoin.heapUsuarios = new HeapUsuarios(cantUsuarios);
-    };
+    }
 
 
     @Override

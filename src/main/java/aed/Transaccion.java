@@ -1,10 +1,10 @@
 package aed;
 
 public class Transaccion implements ITransaccion, Comparable<Transaccion> {
-    private int id;
-    private int id_comprador;
-    private int id_vendedor;
-    private int monto;
+    private final int id;
+    private final int id_comprador;
+    private final int id_vendedor;
+    private final int monto;
 
     public Transaccion(int id, int id_comprador, int id_vendedor, int monto) {
         this.id = id;
@@ -33,18 +33,22 @@ public class Transaccion implements ITransaccion, Comparable<Transaccion> {
         return false;
     }
 
+    @Override
     public int id(){
         return id;
     }
 
+    @Override
     public int monto() {
         return monto;
     }
 
+    @Override
     public int id_comprador() {
         return id_comprador;
     }
 
+    @Override
     public int id_vendedor() {
         return id_vendedor;
     }

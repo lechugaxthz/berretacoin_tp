@@ -1,11 +1,23 @@
 package aed;
 
 public interface ITransaccion {
-    public boolean equals(Object otraTransaccion);
+    /**
+     * @return ID transaccion.
+     */
+    int id();
 
-    public int monto();
+    /**
+     * @return monto transferido.
+     */
+    int monto();
 
-    public int id_comprador();
-    
-    public int id_vendedor();
+    /**
+     * @return ID comprador.
+     */
+    int id_comprador();
+
+    /**
+     * @return ID vendedor.
+     */
+    int id_vendedor();
 }

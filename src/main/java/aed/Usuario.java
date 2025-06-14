@@ -1,33 +1,37 @@
 package aed;
 
 public  class Usuario implements IUsuario, Comparable<Usuario> {
-    private int id;
+    private final int id;
     private int monto;
     private int posicionHeap;
 
     public Usuario(int id, int monto, int posicionHeap){
-        Usuario usuario = this;
-        usuario.id = id;
-        usuario.monto = monto;
-        usuario.posicionHeap = posicionHeap;
+        this.id = id;
+        this.monto = monto;
+        this.posicionHeap = posicionHeap;
     }
 
+    @Override
     public int getMonto(){
         return this.monto;
     }
 
+    @Override
     public void updateMonto(int monto){
         this.monto += monto;
     }
 
+    @Override
     public int getId(){
         return this.id;
     }
 
+    @Override
     public int getPosicionHeap(){
         return this.posicionHeap;
     }
 
+    @Override
     public void updatePosicionHeap(int posicionHeap){
         this.posicionHeap = posicionHeap;
     }
@@ -40,5 +44,5 @@ public  class Usuario implements IUsuario, Comparable<Usuario> {
         } else {
             return difMonto;
         }
-    };
+    }
 }

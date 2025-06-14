@@ -6,7 +6,8 @@ public class HeapUsuarios implements IHeapUsuarios {
 
     private ArrayList<Usuario> heap;
     private ArrayList<Usuario> listaUsuarios;
-    private int size;
+    private int size; // tranquilamente esta variable se cambia por listaUsuarios.size(), pero ya está implementado.
+
     /**
      * Se inicia el heap de usuario a modo lineal (Igual que la lista) ya que no importa su posicion,
      * inician todos en 0 de monto.
@@ -15,14 +16,13 @@ public class HeapUsuarios implements IHeapUsuarios {
      * @param cantUsuarios la cantidad de usuarios entrantes. van de usuario 1 a "n". reservando el 0 para admin.
      */
     public HeapUsuarios(int cantUsuarios){
-        HeapUsuarios heapUsuarios = this;
-        heapUsuarios.heap = new ArrayList<Usuario>();
-        heapUsuarios.listaUsuarios = new ArrayList<Usuario>();
-        heapUsuarios.size = cantUsuarios;
+        this.heap = new ArrayList<>();
+        this.listaUsuarios = new ArrayList<>();
+        this.size = cantUsuarios;
         for (int i = 0; i < cantUsuarios; i++){
             Usuario nuevoUsuario = new Usuario(i+1, 0, i);
-            heapUsuarios.heap.add(i, nuevoUsuario);
-            heapUsuarios.listaUsuarios.add(i, nuevoUsuario);
+            this.heap.add(i, nuevoUsuario);
+            this.listaUsuarios.add(i, nuevoUsuario);
         }
     }
 
@@ -36,18 +36,8 @@ public class HeapUsuarios implements IHeapUsuarios {
         return heap.get(0).getId();
     }
 
-    /**
-     * Se verifica bloque por bloque, a modode. primero comparo y verifico si "este" usuario está en orden
-     * <br>
-     * De no estarlo, se eleva el "primer" correspondiente.
-     * <br>
-     * Posterior a eso, se vuelve a comparar con el otro restante a ver si quedaron en orden.
-     * (no se evita la comparacion con los otros nuevamente...).
-     * <br>
-     * se hace uso de izq y der, refiriendo a los hijos izquierdo y derecho del
-     * supuesto "mayor" (i actual)
-     * @param i indice por el que se parte con la comparacion entre usuarios.
-     */
+
+    @Override
     public void shiftDown(int i){
         while(true) {
             int izq = (2 * i) + 1;
@@ -65,6 +55,7 @@ public class HeapUsuarios implements IHeapUsuarios {
         }
     }
 
+    @Override
     public void shiftUp(int i){
         while(i > 0){
             int padre = (i-1)/2;
@@ -91,6 +82,7 @@ public class HeapUsuarios implements IHeapUsuarios {
         this.heap.set(j, auxI);
     }
 
+    @Override
     public int getPosicionHeapUsuario(int id){
         return listaUsuarios.get(id - 1).getPosicionHeap();
     }

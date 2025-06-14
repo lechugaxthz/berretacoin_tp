@@ -9,11 +9,10 @@ public class Bloque implements IBloque {
     private int cant_transacciones_no_creacion;
 
     public Bloque() {
-        Bloque bloque = this;
-        bloque.transacciones = new ArrayList<Transaccion>();
-        bloque.heapTransacciones = new ArrayList<Transaccion>();
-        bloque.montoTotal = 0;
-        bloque.cant_transacciones_no_creacion= 0;
+        this.transacciones = new ArrayList<>();
+        this.heapTransacciones = new ArrayList<>();
+        this.montoTotal = 0;
+        this.cant_transacciones_no_creacion= 0;
     }
 
 
@@ -34,6 +33,12 @@ public class Bloque implements IBloque {
         }
     }
 
+    /**
+     * Quiza mal el nombre, pero compara con las posiciones Hijas en el heap para poder
+     * verificar quien debe ir a la cabeza del heap.
+     * @param i posicion del heap.
+     */
+
     private void shiftUpAndDown(int i) {
         while(true) {
             int izq = (2 * i) + 1;
@@ -51,6 +56,11 @@ public class Bloque implements IBloque {
         }
     }
 
+    /**
+     * cambia las posiciones de las transacciones en el heap
+     * @param i transaccion menor
+     * @param j transaccion mayor
+     */
     private void changeSites(int i, int j){
         Transaccion aux = heapTransacciones.get(i);
         this.heapTransacciones.set(i, heapTransacciones.get(j));
@@ -60,8 +70,7 @@ public class Bloque implements IBloque {
     @Override
     public Transaccion maximaTransaccion() {
         Transaccion mayorValor = heapTransacciones.get(0);
-        Transaccion copiaMayorValor = new Transaccion(mayorValor.id(), mayorValor.id_comprador(), mayorValor.id_vendedor(),mayorValor.monto());
-        return copiaMayorValor;
+        return new Transaccion(mayorValor.id(), mayorValor.id_comprador(), mayorValor.id_vendedor(),mayorValor.monto());
     }
 
     @Override
@@ -93,8 +102,8 @@ public class Bloque implements IBloque {
         heapTransacciones.remove(0);
         transacciones.remove(maxValor);
         shiftUpAndDown(0);
-        montoTotal += -maxValor.monto();
-        cant_transacciones_no_creacion += -1;
+        montoTotal -= maxValor.monto();
+        cant_transacciones_no_creacion -= 1;
         return maxValor;
     }
 }
