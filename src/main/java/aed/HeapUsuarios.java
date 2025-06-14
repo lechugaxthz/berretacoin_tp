@@ -36,13 +36,6 @@ public class HeapUsuarios implements IHeapUsuarios {
         return heap.get(0).getId();
     }
 
-    @Override
-    public void sortHeap() {
-        for (int i = (this.size / 2) - 1; i >= 0; i--) {
-            shiftUpAndDown(i);
-        }
-    };
-
     /**
      * Se verifica bloque por bloque, a modode. primero comparo y verifico si "este" usuario está en orden
      * <br>
@@ -55,7 +48,7 @@ public class HeapUsuarios implements IHeapUsuarios {
      * supuesto "mayor" (i actual)
      * @param i indice por el que se parte con la comparacion entre usuarios.
      */
-    public void shiftUpAndDown(int i){
+    public void shiftDown(int i){
         while(true) {
             int izq = (2 * i) + 1;
             int der = (2 * i) + 2;
@@ -69,6 +62,16 @@ public class HeapUsuarios implements IHeapUsuarios {
             if (mayor == i) break;
             changeSites(i, mayor);
             i = mayor;
+        }
+    }
+
+    public void shiftUp(int i){
+        while(i > 0){
+            int padre = (i-1)/2;
+            if(this.heap.get(i).compareTo(this.heap.get(padre)) < 0){
+                changeSites(i, padre);
+                i = padre;
+            } else break;
         }
     }
 

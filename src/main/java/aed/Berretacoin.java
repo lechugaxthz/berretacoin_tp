@@ -19,13 +19,14 @@ public class Berretacoin implements IBerretacoin {
             int id_comprador = transaccion.id_comprador();
             int id_vendedor = transaccion.id_vendedor();
             int monto =  transaccion.monto();
+            heapUsuarios.actualizarMontoUsuario(id_vendedor, monto);
             if (id_comprador != 0){
                 heapUsuarios.actualizarMontoUsuario(id_comprador, -monto);
+                heapUsuarios.shiftDown(heapUsuarios.getPosicionHeapUsuario(id_comprador));
             }
-            heapUsuarios.actualizarMontoUsuario(id_vendedor, monto);
+            heapUsuarios.shiftUp(heapUsuarios.getPosicionHeapUsuario(id_vendedor));
         }
         bloque.sortHeapTransacciones();
-        heapUsuarios.sortHeap();
     }
 
     @Override
@@ -51,14 +52,13 @@ public class Berretacoin implements IBerretacoin {
     @Override
     public void hackearTx() {
         Transaccion transaccion = bloque.HackTransaccion();
+        if (transaccion.id_comprador() != 0) {
+            heapUsuarios.actualizarMontoUsuario(transaccion.id_comprador(), transaccion.monto());
+            int posicionUsuarioEnHeapComprador = heapUsuarios.getPosicionHeapUsuario(transaccion.id_comprador());
+            heapUsuarios.shiftUp(posicionUsuarioEnHeapComprador);
+        }
         heapUsuarios.actualizarMontoUsuario(transaccion.id_vendedor(), -transaccion.monto());
-        heapUsuarios.actualizarMontoUsuario(transaccion.id_comprador(), transaccion.monto());
         int posicionUsuarioEnHeapVendedor = heapUsuarios.getPosicionHeapUsuario(transaccion.id_vendedor());
-        /* int posicionUsuarioEnHeapComprador = heapUsuarios.getPosicionHeapUsuario(transaccion.id_comprador());
-        if (posicionUsuarioEnHeapComprador % 2 == 0) {
-            
-        } */
-        heapUsuarios.shiftUpAndDown(posicionUsuarioEnHeapVendedor);
-        
+        heapUsuarios.shiftDown(posicionUsuarioEnHeapVendedor);
     }
 }
