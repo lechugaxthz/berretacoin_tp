@@ -3,11 +3,13 @@ package aed;
 public  class Usuario implements IUsuario, Comparable<Usuario> {
     private int id;
     private int monto;
+    private int posicionHeap;
 
-    public Usuario(int id, int monto){
+    public Usuario(int id, int monto, int posicionHeap){
         Usuario usuario = this;
         usuario.id = id;
         usuario.monto = monto;
+        usuario.posicionHeap = posicionHeap;
     }
 
     public int getMonto(){
@@ -22,11 +24,19 @@ public  class Usuario implements IUsuario, Comparable<Usuario> {
         return this.id;
     }
 
+    public int getPosicionHeap(){
+        return this.posicionHeap;
+    }
+
+    public void updatePosicionHeap(int posicionHeap){
+        this.posicionHeap = posicionHeap;
+    }
+
     @Override
     public int compareTo(Usuario usuario2){
-        int difMonto = Float.compare(usuario2.getMonto(), this.getMonto());
+        int difMonto = usuario2.getMonto() - monto;
         if (difMonto == 0){
-            return (usuario2.id - this.id);
+            return id - usuario2.id;
         } else {
             return difMonto;
         }

@@ -1,7 +1,5 @@
 package aed;
 
-import java.util.ArrayList;
-
 /**
  *   Debe contener:
  *      P cantidad de usuarios
@@ -15,7 +13,7 @@ public interface IBerretacoin {
      *  Debe agregar un bloque a la secuencia de transacciones
      * @return
      */
-    void agregarBloque( ArrayList<Transaccion> transaccions);
+    void agregarBloque( Transaccion[] transaccions);
 
     /**
      * Complejidad O(1)
@@ -29,7 +27,7 @@ public interface IBerretacoin {
      * Devuelve una copia de la secuencia de transacciones del últmo bloque ordenadas por su ID
      * @return
      */
-    ArrayList<Transaccion> txUltimoBloque();
+    Transaccion[] txUltimoBloque();
 
     /**
      * Complejidad O(1)
