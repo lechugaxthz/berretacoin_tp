@@ -96,7 +96,6 @@ public class BerretacoinTests {
                 new Transaccion(5, 2, 3, 1)  // 1 -> $1, 3 -> $2
         };
     }
-    @
 
     @Test
     public void maximoTenedorEsElMinimoCuandoNuevo(){
