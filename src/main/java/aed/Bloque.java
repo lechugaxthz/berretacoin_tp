@@ -44,10 +44,10 @@ public class Bloque implements IBloque {
             int izq = (2 * i) + 1;
             int der = (2 * i) + 2;
             int mayor = i;
-            if (izq < transacciones.size()  && heapTransacciones.get(mayor).compareTo(heapTransacciones.get(izq)) > 0) {
+            if (izq < heapTransacciones.size()  && heapTransacciones.get(mayor).compareTo(heapTransacciones.get(izq)) > 0) {
                 mayor = izq;
             }
-            if (der < transacciones.size() && heapTransacciones.get(mayor).compareTo(heapTransacciones.get(der)) > 0) {
+            if (der < heapTransacciones.size() && heapTransacciones.get(mayor).compareTo(heapTransacciones.get(der)) > 0) {
                 mayor = der;
             }
             if (mayor == i) break;
@@ -75,14 +75,21 @@ public class Bloque implements IBloque {
 
     @Override
     public Transaccion[] obtenerCopiaTransacciones() {
-        Transaccion[] copiaTransacciones = new Transaccion[transacciones.size()];
-        for (int i = 0; i < transacciones.size(); i++) {
-            Transaccion thisTransaccion = transacciones.get(i);
-            copiaTransacciones[i] = new Transaccion(
-                thisTransaccion.id(), 
-                thisTransaccion.id_comprador(), 
-                thisTransaccion.id_vendedor(), 
-                thisTransaccion.monto());
+        if (heapTransacciones.size() == 0) return new Transaccion[0];
+        Transaccion[] copiaTransacciones = new Transaccion[heapTransacciones.size()];
+        int posicion = 0;
+        for (int i = 0; i < heapTransacciones.size(); i++) {
+            Transaccion thisTransaccion = transacciones.get(posicion);
+            if (thisTransaccion != null){
+                copiaTransacciones[i] = new Transaccion(
+                    thisTransaccion.id(), 
+                    thisTransaccion.id_comprador(), 
+                    thisTransaccion.id_vendedor(), 
+                    thisTransaccion.monto());
+            } else {
+                i--;
+            }
+            posicion++;
         }
         return copiaTransacciones;
     }
@@ -100,7 +107,7 @@ public class Bloque implements IBloque {
     public Transaccion HackTransaccion() {
         Transaccion maxValor = heapTransacciones.get(0);
         heapTransacciones.remove(0);
-        transacciones.remove(maxValor);
+        transacciones.set(maxValor.id(), null);
         shiftUpAndDown(0);
         montoTotal -= maxValor.monto();
         cant_transacciones_no_creacion -= 1;

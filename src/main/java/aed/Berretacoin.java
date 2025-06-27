@@ -22,9 +22,7 @@ public class Berretacoin implements IBerretacoin {
             heapUsuarios.actualizarMontoUsuario(id_vendedor, monto);
             if (id_comprador != 0){
                 heapUsuarios.actualizarMontoUsuario(id_comprador, -monto);
-                heapUsuarios.shiftDown(heapUsuarios.getPosicionHeapUsuario(id_comprador));
             }
-            heapUsuarios.shiftUp(heapUsuarios.getPosicionHeapUsuario(id_vendedor));
         }
         bloque.sortHeapTransacciones();
     }
@@ -54,11 +52,7 @@ public class Berretacoin implements IBerretacoin {
         Transaccion transaccion = bloque.HackTransaccion();
         if (transaccion.id_comprador() != 0) {
             heapUsuarios.actualizarMontoUsuario(transaccion.id_comprador(), transaccion.monto());
-            int posicionUsuarioEnHeapComprador = heapUsuarios.getPosicionHeapUsuario(transaccion.id_comprador());
-            heapUsuarios.shiftUp(posicionUsuarioEnHeapComprador);
         }
         heapUsuarios.actualizarMontoUsuario(transaccion.id_vendedor(), -transaccion.monto());
-        int posicionUsuarioEnHeapVendedor = heapUsuarios.getPosicionHeapUsuario(transaccion.id_vendedor());
-        heapUsuarios.shiftDown(posicionUsuarioEnHeapVendedor);
     }
 }

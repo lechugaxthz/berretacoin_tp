@@ -29,6 +29,11 @@ public class HeapUsuarios implements IHeapUsuarios {
     @Override
     public void actualizarMontoUsuario(int id_usuario, int monto) {
         this.listaUsuarios.get(id_usuario - 1).updateMonto(monto);
+        if (monto > 0) {
+            shiftUp(getPosicionHeapUsuario(id_usuario));
+        } else {
+            shiftDown(getPosicionHeapUsuario(id_usuario));
+        }
     }
 
     @Override
